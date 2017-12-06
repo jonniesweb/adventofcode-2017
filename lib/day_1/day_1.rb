@@ -1,23 +1,46 @@
 class Day1
-  def self.captcha(input)
-    sum = 0
-    input = input.to_s
-    input.each_char.with_index do |c, index|
-      sum += c.to_i if c == input[(index+1) % input.length]
-    end
+  attr_reader :num, :length
 
-    sum
+  def initialize(num)
+    @num = to_digit_array(num)
+    @length = @num.length
   end
 
-  def self.captcha2(input)
-    sum = 0
-    input = input.to_s
-    half = input.length / 2
-    input.each_char.with_index do |c, index|
-      sum += c.to_i if c == input[(half + index) % input.length]
+  def captcha
+    sum_selected do |digit, index|
+      digit == digit_at(index)
     end
-
-    sum
   end
 
+  def captcha2
+    sum_selected do |digit, index|
+      digit == digit_at_half(index)
+    end
+  end
+
+  private
+
+  def sum_selected
+    num.select.with_index do |digit, index|
+      yield digit, index
+    end
+    .reduce(:+) || 0
+  end
+
+  def digit_at(index)
+    num[modulo(index)]
+  end
+
+  def digit_at_half(index)
+    half = length / 2
+    num[modulo(index, half)]
+  end
+
+  def modulo(index, increment = 1)
+    (index + increment) % length
+  end
+
+  def to_digit_array(number)
+    number.to_s.chars.map(&:to_i)
+  end
 end
