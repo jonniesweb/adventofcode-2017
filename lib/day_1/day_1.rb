@@ -1,9 +1,8 @@
 class Day1
-  attr_reader :num, :length
+  attr_reader :num
 
   def initialize(num)
-    @num = to_digit_array(num)
-    @length = @num.length
+    @num = CircularArray.new(to_digit_array(num))
   end
 
   def captcha
@@ -28,19 +27,25 @@ class Day1
   end
 
   def digit_at(index)
-    num[modulo(index)]
+    num[next_digit_index(index)]
   end
 
   def digit_at_half(index)
-    half = length / 2
-    num[modulo(index, half)]
+    half = num.length / 2
+    num[next_digit_index(index, half)]
   end
 
-  def modulo(index, increment = 1)
-    (index + increment) % length
+  def next_digit_index(index, offset = 1)
+    index + offset
   end
 
   def to_digit_array(number)
     number.to_s.chars.map(&:to_i)
+  end
+end
+
+class CircularArray < Array
+  def [](i)
+    super(i % length)
   end
 end
