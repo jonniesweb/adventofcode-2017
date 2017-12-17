@@ -26,7 +26,7 @@ class Day3
       if result == 0 || result == ring_number - 1
         direction *= -1
       end
-      
+
       result += direction
       i -= 1
     end
@@ -55,11 +55,119 @@ end
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+class Day3p
+  attr_reader :array
+  def initialize
+    @count = 0
+    @array = Array.new(20, &proc { Array.new(20, 0) })
+    @array[10][10] = 1
+
+    @sum_count = 1
+  end
+
+  def get(num)
+  end
+
+  def populate(n)
+    x = y = 0
+    dir_seq = 0
+    x_dir = [1, 0, -1, 0]
+    y_dir = [0, -1, 0, 1]
+
+    counter = 0
+    while counter < 368078
+      steps_to_take = count
+
+      steps_to_take.times.each do |steps|
+
+        counter += 1
+
+        value = get(x, y)
+        if value == 0
+          counter = sum(x, y)
+        end
+
+        x += x_dir[dir_seq]
+        y += y_dir[dir_seq]
+      end
+      dir_seq = (dir_seq + 1) % 4
+    end
+
+    # puts array.inspect
+  end
+
+  def sum(x, y)
+    set(x, y,
+      get(x-1, y-1) +
+      get(x-1, y) +
+      get(x-1, y+1) +
+      get(x, y-1) +
+      get(x, y+1) +
+      get(x+1, y-1) +
+      get(x+1, y) +
+      get(x+1, y+1)
+    )
+  end
+
+  def count
+    s = @count += 0.5
+    s.floor
+  end
+
+  def get(x, y)
+    array[10 + x][10 + y]
+  end
+
+  def set(x, y, value)
+    @sum_count += 1
+    # puts "set: #{@sum_count} x: #{x} y: #{y} val: #{value}"
+    array[10 + x][10 + y] = value
+  end
+end
+
 # 17  16  15  14  13
 # 18   5   4   3  12
 # 19   6   1   2  11
 # 20   7   8   9  10
 # 21  22  23---> ...
+
+# adjacent
+# 1
+#
+# 2 1
+# 3 1 2
+# 4 1 2 3
+# 5 1 4
+# 6 1 2 5
+# 7 1 6
+# 8 1 2 6 7
+# 9 1 7 8
+#
+# 10 1 8
+# 11 1 2 8 9
+# 12 1 9 10
+# 13 1 10
+# 14 1 2 10 11
+# 15 1 10 11 12
+# 16 1 11 12
+# 17 1 13
+# 18 1 2 12 13
+# 19 1 12 13 14
+# 20 1 13 14
+# 21 1 14
+# 22 1 2 14 15
+# 23 1 14 15 16
 
 # 1
 # 2 3 4 5 6 7 8 9

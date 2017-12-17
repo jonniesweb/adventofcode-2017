@@ -63,4 +63,37 @@ class Day3Test < Minitest::Test
   def test_part_1
     assert_equal 371, Day3.new(368078).steps
   end
+
+  def test_two
+    # checks = %w(
+    #   1
+    #   1
+    #   2
+    #   4
+    #   5
+    #   10
+    #   11
+    #   23
+    #   25
+    #   26
+    #   54
+    #   57
+    #   59
+    #   122
+    #   133
+    #   142
+    #   147
+    #   304
+    #   330
+    #   351
+    #   362
+    #   747
+    #   806
+    # ).map!(&:to_i)
+    # s = Day3p.new
+    # checks.each.with_index do |n, index|
+    #   assert_equal n, s.populate(index)
+    # end
+    Day3p.new.populate(30)
+  end
 end
