@@ -12,9 +12,23 @@ class Day6
       count += 1
       biggest = find_biggest
       redistribute(biggest)
-      break if memory_duplicate?(history)
+      break if memory_duplicate(history, count) > 1
     end
     count
+  end
+
+  def perform2
+    count = 0
+    history = {}
+
+    while true do
+      count += 1
+      biggest = find_biggest
+      redistribute(biggest)
+      value = memory_duplicate(history, count)
+      break if value > 1
+    end
+    count - history[memory][:start]
   end
 
   private
@@ -32,10 +46,8 @@ class Day6
     end
   end
 
-  def memory_duplicate?(history)
-    result = memory.join(' ')
-    return true if history[result]
-    history[result] = 1
-    false
+  def memory_duplicate(history, count)
+    history[memory] ? history[memory][:count] += 1 : history[memory] = { count: 1, start: count}
+    return history[memory][:count]
   end
 end
