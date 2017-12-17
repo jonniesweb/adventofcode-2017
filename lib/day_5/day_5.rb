@@ -15,4 +15,16 @@ class Day5
     end
     jumps
   end
+
+  def jump2
+    pointer = 0
+    jumps = 0
+    while input[pointer] != nil
+      jumps += 1
+      previous = input[pointer]
+      input[pointer] += input[pointer] >= 3 ? -1 : 1
+      pointer += previous
+    end
+    jumps
+  end
 end

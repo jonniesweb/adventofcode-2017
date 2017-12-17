@@ -3,20 +3,28 @@ require 'day_5/day_5'
 
 class Day5Test < Minitest::Test
   def test_one
-    input = <<~END
-      0
-      3
-      0
-      1
-      -3
-    END
-
-    assert_equal 5, Day5.new(input).jump
+    assert_equal 5, Day5.new(TEST_INPUT).jump
   end
 
   def test_part_one
     assert_equal 372671, Day5.new(INPUT).jump
   end
+
+  def test_two
+    assert_equal 10, Day5.new(TEST_INPUT).jump2
+  end
+
+  def test_part_two
+    assert_equal 25608480, Day5.new(INPUT).jump2
+  end
+
+  TEST_INPUT = <<~END
+    0
+    3
+    0
+    1
+    -3
+  END
 
   INPUT = <<~END
     1
