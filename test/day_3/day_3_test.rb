@@ -15,19 +15,6 @@ class Day3Test < Minitest::Test
     end
   end
 
-  # test that given a percentage of the current way through an array, the percentage picks the proper cell
-  # number in ring from percentage
-  def test_percentage_to_cell_position
-    checks = [
-      [16, 0.2320508075688772, 3],
-      [16, 0.8979157616563596, 14]
-    ]
-
-    checks.each do |check|
-      assert_equal check[2], Day3.percent_to_cell(check[0], check[1])
-    end
-  end
-
   def test_ring_number
     checks = [
       [1, 1],
@@ -40,5 +27,40 @@ class Day3Test < Minitest::Test
     checks.each do |check|
       assert_equal check[1], Day3.new(check[0]).ring_number
     end
+  end
+
+  def test_steps_to_middle
+    checks = [
+      [2, 1, 0],
+      [2, 2, 1],
+      [2, 3, 0],
+      [2, 4, 1],
+      [2, 5, 0],
+      [2, 6, 1],
+      [2, 7, 0],
+      [2, 8, 1],
+
+      [3, 1, 1],
+      [3, 2, 0],
+      [3, 3, 1],
+      [3, 4, 2],
+      [3, 5, 1],
+      [3, 6, 0],
+      [3, 7, 1],
+      [3, 8, 2],
+      [3, 9, 1],
+      [3, 10, 0],
+
+      [4, 1, 2]
+
+    ]
+
+    checks.each do |check|
+      assert_equal check[2], Day3.new(check[0]).steps_to_middle(check[0], check[1])
+    end
+  end
+
+  def test_part_1
+    assert_equal 371, Day3.new(368078).steps
   end
 end

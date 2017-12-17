@@ -6,57 +6,10 @@ class Day3
 
   def steps
     return 0 if num == 1
+    full_ring = total_at_ring(ring_number - 1)
+    leftover_steps = num - full_ring
 
-    position = inverse_total(num)
-    ring_number = position.ceil
-
-    percent_through_current_ring = position - position.floor
-
-    puts "num: #{num} \nposition: #{position} \nring#: #{ring_number} \ncurrent ring percent: #{percent_through_current_ring}"
-
-    position.ceil - 1
-
-    steps_to_ring = ring_number - 1
-    puts "steps to ring: #{steps_to_ring}"
-
-    # cells_in_an_eighth = total_ring(ring_number) / 8
-    # percent_of_an_eighth = percent_through_current_ring % 0.125
-    # steps_to_mid = cells_in_an_eighth * percent_of_an_eighth
-
-    # puts "cells in eighth: #{cells_in_an_eighth}"
-    # puts "percent through eighth: #{percent_of_an_eighth}"
-    # puts "steps to midpoint: #{steps_to_mid}"
-
-    cells_in_ring = total_ring(ring_number)
-    puts "cells in ring: #{cells_in_ring}"
-    number_in_ring = cells_in_ring * percent_through_current_ring
-    puts "number in ring: #{number_in_ring} #{number_in_ring.round}"
-    puts "% size of cell: #{1.0 / cells_in_ring}"
-
-    generated_cell_number = number_in_ring.ceil + total_ring(ring_number - 1)
-    puts "maybe cell number? #{generated_cell_number}"
-    raise 'cell number not the same' unless generated_cell_number == num
-
-    cells_in_an_eighth = cells_in_ring / 8
-    number_of_cells_taken = number_in_ring % cells_in_an_eighth
-    puts "cells in eighth: #{cells_in_an_eighth}"
-    puts "num of cells taken: #{number_of_cells_taken}"
-
-    cells_in_an_eighth + 1
-
-
-    # steps = steps to ring + steps to closest middle
-
-    # steps to ring = ring_num - 1
-    # cells_in_an_eighth = total_ring(n) / 8
-    # percent_of_an_eighth = percent_through_current_ring % 0.125
-    # steps_to_mid = cells_in_an_eighth * percent_of_an_eighth
-    # steps = steps_to_ring + steps_to_mid
-  end
-
-  def self.percent_to_cell(total, percent)
-    s= total * (percent - (1.0/total))
-    s.ceil
+    ring_number + steps_to_middle(ring_number, leftover_steps) - 1
   end
 
   def ring_number
@@ -64,7 +17,24 @@ class Day3
     ring_number = position.ceil
   end
 
-  private
+  def steps_to_middle(ring_number, number)
+    result = ring_number - 2
+
+    direction = -1
+    i = number - 1
+    while i > 0 do
+      if result == 0 || result == ring_number - 1
+        direction *= -1
+      end
+      
+      result += direction
+      i -= 1
+    end
+
+    result
+  end
+
+  # private
 
   def total_at_ring(n)
     (n * 2 - 1) ** 2
@@ -110,29 +80,33 @@ end
 # 5 81 80
 
 # steps from origin
-# 1 0
-# 2 1
-# 3 2
-# 4 1
-# 5 2
-# 6 1
-# 7 2
-# 8 1
-# 9 2
-# 10 3
-# 11 2
-# 12 3
-# 13 4
-# 14 3
-# 15 2
-# 16 3
-# 17 4
-# 18 3
-# 19 2
-# 20 3
-# 21 4
-# 22 3
-# 23 2
+# 1 0   0
+
+# 2 1   0
+# 3 2   1
+# 4 1   0
+# 5 2   1
+# 6 1   0
+# 7 2   1
+# 8 1   0
+# 9 2   1
+
+# 10 3  1
+# 11 2  0
+# 12 3  1
+# 13 4  2
+# 14 3  1
+# 15 2  0
+# 16 3  1
+# 17 4  2
+# 18 3  1
+# 19 2  0
+# 20 3  1
+# 21 4  2
+# 22 3  1
+# 23 2  0
+# 24 3  1
+# 25 4  2
 
 # number of steps to go before turning
 # 0
