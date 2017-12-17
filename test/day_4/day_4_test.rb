@@ -23,6 +23,29 @@ class Day4Test < Minitest::Test
     assert_equal 386, result
   end
 
+  def test_two
+    checks = [
+      ["abcde fghij", true],
+      ["abcde xyz ecdab", false],
+      ["a ab abc abd abf abj", true],
+      ["iiii oiii ooii oooi oooo", true],
+      ["oiii ioii iioi iiio", false]
+    ]
+
+    checks.each do |check|
+      assert_equal check[1], Day4.new(check[0]).passphrase2
+    end
+  end
+
+  def test_part_two
+    result = INPUT.each_line.map do |line|
+      Day4.new(line).passphrase2 ? 1 : 0
+    end
+    .reduce(:+)
+
+    assert_equal 208, result
+  end
+
   INPUT = <<~END
     oaoe rxeq vssdqtu xrk cjv yaoqp loo
     mveua dogbam szydvri hyzk lbega abzqw xwjn wniug kwbre
