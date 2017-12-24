@@ -10,6 +10,14 @@ class Day8Test < Minitest::Test
     assert_equal 5102, Day8.new(TEST).largest_value
   end
 
+  def test_two
+    assert_equal 10, Day8.new(INPUT).highest_value
+  end
+
+  def test_part_two
+    assert_equal 6056, Day8.new(TEST).highest_value
+  end
+
   INPUT = <<~END
     b inc 5 if a > 1
     a inc 1 if b < 5

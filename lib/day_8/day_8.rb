@@ -12,12 +12,21 @@ class Day8
         })
     end
 
-    @context = @ops.inject({}) { |context, statement|  statement.execute(context)
-    context }
+    @highest_value = -10000000
+
+    @context = @ops.inject({}) do |context, statement|
+      result = statement.execute(context)
+      @highest_value = result if @highest_value < result
+      context
+    end
   end
 
   def largest_value
     @context.values.max
+  end
+
+  def highest_value
+    @highest_value
   end
 end
 
@@ -43,6 +52,8 @@ class Statement
       when 'dec'
         context[var] = context.fetch(var, 0) - val
       end
+    else
+      0
     end
   end
 end
