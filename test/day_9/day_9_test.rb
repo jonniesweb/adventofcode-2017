@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'day_9/day_9'
+require 'byebug'
 
 class Day9Test < Minitest::Test
   def test_groups
@@ -33,11 +34,30 @@ class Day9Test < Minitest::Test
     checks.each do |check|
       assert_equal check[1], Day9.new(check[0]).score
     end
-
   end
 
   def test_part_one
     assert_equal 10820, Day9.new(TEST).score
+  end
+
+  def test_count_garbage
+    checks = [
+      ['<>', 0],
+      ['{<random characters>}', 17],
+      ['{<<<<>}', 3],
+      ['{<{!>}>}', 2],
+      ['{<!!>}', 0],
+      ['{<!!!>>}', 0],
+      ['{<{o"i!a,<{i<a>}', 10]
+    ]
+
+    checks.each do |check|
+      assert_equal check[1], Day9.new(check[0]).garbage_count
+    end
+  end
+
+  def test_part_two
+    assert_equal 5547, Day9.new(TEST).garbage_count
   end
 
   TEST = <<~END
