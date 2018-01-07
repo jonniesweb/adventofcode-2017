@@ -3,28 +3,36 @@ require 'day_7/day_7'
 
 class Day7Test < Minitest::Test
   def test_one
-    input = <<~INPUT
-      pbga (66)
-      xhth (57)
-      ebii (61)
-      havc (66)
-      ktlj (57)
-      fwft (72) -> ktlj, cntj, xhth
-      qoyq (66)
-      padx (45) -> pbga, havc, qoyq
-      tknk (41) -> ugml, padx, fwft
-      jptl (61)
-      ugml (68) -> gyxo, ebii, jptl
-      gyxo (61)
-      cntj (57)
-    INPUT
-
-    assert_equal 'tknk', Day7.new(input).root
+    assert_equal 'tknk', Day7.new(TEST_INPUT).root.name
   end
 
   def test_part_one
-    assert_equal 'cqmvs', Day7.new(INPUT).root
+    assert_equal 'cqmvs', Day7.new(INPUT).root.name
   end
+
+  def test_two
+    assert_equal 60, Day7.new(TEST_INPUT).wrong_weight
+  end
+
+  def test_part_two
+    assert_equal 2310, Day7.new(INPUT).wrong_weight
+  end
+
+  TEST_INPUT = <<~INPUT
+    pbga (66)
+    xhth (57)
+    ebii (61)
+    havc (66)
+    ktlj (57)
+    fwft (72) -> ktlj, cntj, xhth
+    qoyq (66)
+    padx (45) -> pbga, havc, qoyq
+    tknk (41) -> ugml, padx, fwft
+    jptl (61)
+    ugml (68) -> gyxo, ebii, jptl
+    gyxo (61)
+    cntj (57)
+  INPUT
 
   INPUT = <<~INPUT
     fjkfpm (69) -> kohxzh, liwvq, eqkio, xvoyybs
